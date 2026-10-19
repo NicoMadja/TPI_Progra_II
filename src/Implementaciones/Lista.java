@@ -1,9 +1,8 @@
 package Implementaciones;
 
-import TDAs.ListaTDA;
 import java.util.Objects;
 
-public class ListaDinamica extends ListaTDA {
+public class Lista {
     // Clase interna para el nodo.
     private static class NodoLista {
         Object dato;
@@ -12,12 +11,11 @@ public class ListaDinamica extends ListaTDA {
     private NodoLista origen;
     private int cantidad;
 
-    public ListaDinamica() {
+    public Lista() {
         this.origen = null;
         this.cantidad = 0;
     }
 
-    @Override
     public void agregar(Object x) {
         NodoLista nuevo = new NodoLista();
         nuevo.dato = x;
@@ -26,7 +24,6 @@ public class ListaDinamica extends ListaTDA {
         cantidad++;
     }
 
-    @Override
     public void eliminar(Object x) {
         NodoLista anterior = null;
         NodoLista actual = origen;
@@ -45,7 +42,6 @@ public class ListaDinamica extends ListaTDA {
         cantidad--;
     }
 
-    @Override
     public boolean pertenece(Object x) {
         NodoLista actual = origen;
         while (actual != null) {
@@ -55,7 +51,6 @@ public class ListaDinamica extends ListaTDA {
         return false;
     }
 
-    @Override
     public Object elegir() {
         if (cantidad == 0) {
             throw new RuntimeException("elegir(): lista vacia");
@@ -63,12 +58,10 @@ public class ListaDinamica extends ListaTDA {
         return origen.dato;
     }
 
-    @Override
     public int tamanio() {
         return cantidad;
     }
 
-    @Override
     public boolean esVacia() {
         return cantidad == 0;
     }

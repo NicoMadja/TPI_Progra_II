@@ -1,22 +1,18 @@
 package Implementaciones;
 
-import TDAs.ColaTDA;
-
-public class ColaEstatica extends ColaTDA {
-
+public class Cola {
     private int[] datos;
     private int frente;   // indice del primer elemento
     private int cantidad; // cuantos elementos hay
     private int capacidad;
 
-    public ColaEstatica(int capacidad) {
+    public Cola(int capacidad) {
         this.capacidad = capacidad;
         this.datos = new int[capacidad];
         this.frente = 0;
         this.cantidad = 0;
     }
 
-    @Override
     public void encolar(int x) {
         if (frente + cantidad == capacidad) {
             throw new RuntimeException("Cola llena");
@@ -25,7 +21,6 @@ public class ColaEstatica extends ColaTDA {
         cantidad++;
     }
 
-    @Override
     public void desencolar() {
         if (esVacia()) {
             throw new RuntimeException("Cola vacia");
@@ -35,7 +30,6 @@ public class ColaEstatica extends ColaTDA {
         cantidad--;
     }
 
-    @Override
     public int primero() {
         if (esVacia()) {
             throw new RuntimeException("Cola vacia");
@@ -43,7 +37,6 @@ public class ColaEstatica extends ColaTDA {
         return datos[frente];
     }
 
-    @Override
     public boolean esVacia() {
         return cantidad == 0;
     }

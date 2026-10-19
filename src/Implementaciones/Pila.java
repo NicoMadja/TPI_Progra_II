@@ -1,19 +1,16 @@
 package Implementaciones;
 
-import TDAs.PilaTDA;
-
-public class PilaEstatica extends PilaTDA {
+public class Pila {
     private int[] datos;
     private int tope;       // cantidad de elementos / proximo lugar libre
     private int capacidad;
 
-    public PilaEstatica(int capacidad) {
+    public Pila(int capacidad) {
         this.capacidad = capacidad;
         this.datos = new int[capacidad];
         this.tope = 0;
     }
 
-    @Override
     public void apilar(int x) {
         if (tope == capacidad) {
             throw new RuntimeException("Pila llena");
@@ -22,7 +19,6 @@ public class PilaEstatica extends PilaTDA {
         tope++;
     }
 
-    @Override
     public void desapilar() {
         if (esVacia()) {
             throw new RuntimeException("Pila vacia");
@@ -30,7 +26,6 @@ public class PilaEstatica extends PilaTDA {
         tope--;
     }
 
-    @Override
     public int tope() {
         if (esVacia()) {
             throw new RuntimeException("Pila vacia");
@@ -38,7 +33,6 @@ public class PilaEstatica extends PilaTDA {
         return datos[tope - 1];
     }
 
-    @Override
     public boolean esVacia() {
         return tope == 0;
     }
