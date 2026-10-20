@@ -1,11 +1,11 @@
 package Implementaciones;
 
 public class Grafo {
-    private boolean[][] adyacencia;
-    private String[] etiquetas;   // etiquetas[i] = etiqueta del vertice de indice i
-    private Diccionario indices;  // etiqueta -> indice
-    private int capacidad;
-    private int cantidadVertices;
+    public boolean[][] adyacencia;
+    public String[] etiquetas;   // etiquetas[i] = etiqueta del vertice de indice i
+    public Diccionario indices;  // etiqueta -> indice
+    public int capacidad;
+    public int cantidadVertices;
 
     public Grafo(int n) {
         this.capacidad = n;
@@ -48,7 +48,7 @@ public class Grafo {
         return vecinosPorIndice(indices.obtener(etiqueta));
     }
 
-    private int[] vecinosPorIndice(int v) {
+    public int[] vecinosPorIndice(int v) {
         int cant = 0;
         for (int j = 0; j < cantidadVertices; j++) {
             if (adyacencia[v][j]) {
@@ -66,11 +66,11 @@ public class Grafo {
         return resultado;
     }
 
-    private String etiquetaDe(int indice) {
+    public String etiquetaDe(int indice) {
         return etiquetas[indice];
     }
 
-    private int indiceDe(String etiqueta) {
+    public int indiceDe(String etiqueta) {
         return indices.obtener(etiqueta);
     }
 }
