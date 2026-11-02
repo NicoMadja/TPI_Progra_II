@@ -1,58 +1,128 @@
+import Implementaciones.Cola;
 import Implementaciones.Grafo;
+import Implementaciones.Pila;
+
+import java.util.Arrays;
 
 public class Main {
-    private static String setDeVecinos(Grafo g, String etiqueta) {
-        int[] vecinos = g.vecinos(etiqueta);
-        if (vecinos.length == 0) {
-            return "{ }";
+    // # Aclaración: utilizamos -Arrays.toString- para imprimir los nombres de los vértices en consola.
+
+    // Traductor de números enteros a nombres de ciudades
+    private static String[] traducir(Grafo g, int[] orden, int cantidad) {
+        String[] resultado = new String[cantidad];
+        for (int i = 0; i < cantidad; i++) {
+            resultado[i] = g.etiquetaDe(orden[i]);
         }
-        StringBuilder sb = new StringBuilder("{ ");
-        for (int i = 0; i < vecinos.length; i++) {
-            sb.append(g.etiquetaDe(vecinos[i]));
-            if (i < vecinos.length - 1) sb.append(", ");
-        }
-        sb.append(" }");
-        return sb.toString();
+        return resultado;
     }
 
+    // BFS
+    public static String[] BFS(Grafo g, String origen) {
+        int n = g.cantidadVertices();
+        int[] orden = new int[n];
+        int cantOrden = 0;
+        boolean[] visitado = new boolean[n];
+        Cola cola = new Cola(n);
+
+        int inicio = g.indiceDe(origen);
+        cola.encolar(inicio);
+        visitado[inicio] = true;
+
+        while (!cola.esVacia()) {
+            int actual = cola.primero();
+            cola.desencolar();
+            orden[cantOrden] = actual;
+            cantOrden++;
+
+            int[] vecinos = g.vecinos(g.etiquetaDe(actual));
+            for (int i = 0; i < vecinos.length; i++) {
+                int w = vecinos[i];
+                if (!visitado[w]) {
+                    visitado[w] = true;
+                    cola.encolar(w);
+                }
+            }
+        }
+        return traducir(g, orden, cantOrden);
+    }
+
+    // DFS (Recursivo)
+    public static String[] DFS(Grafo g, String origen) {
+        int n = g.cantidadVertices();
+        int[] orden = new int[n];
+        int[] cantOrden = new int[] { 0 };
+        boolean[] visitado = new boolean[n];
+        DFSAux(g, g.indiceDe(origen), visitado, orden, cantOrden);
+        return traducir(g, orden, cantOrden[0]);
+    }
+    private static void DFSAux(Grafo g, int v, boolean[] visitado, int[] orden, int[] cantOrden) {
+        visitado[v] = true;
+        orden[cantOrden[0]] = v;
+        cantOrden[0]++;
+
+        int[] vecinos = g.vecinos(g.etiquetaDe(v));
+        for (int i = 0; i < vecinos.length; i++) {
+            int w = vecinos[i];
+            if (!visitado[w]) {
+                DFSAux(g, w, visitado, orden, cantOrden);
+            }
+        }
+    }
+
+    // DFSI (Iterativo)
+    public static String[] DFSI(Grafo g, String origen) {
+        int n = g.cantidadVertices();
+        int[] orden = new int[n];
+        int cantOrden = 0;
+        boolean[] visitado = new boolean[n];
+        Pila pila = new Pila(n * n + 1);
+
+        pila.apilar(g.indiceDe(origen));
+        while (!pila.esVacia()) {
+            int actual = pila.tope();
+            pila.desapilar();
+            if (!visitado[actual]) {
+                visitado[actual] = true;
+                orden[cantOrden] = actual;
+                cantOrden++;
+
+                int[] vecinos = g.vecinos(g.etiquetaDe(actual));
+                for (int i = 0; i < vecinos.length; i++) {
+                    if (!visitado[vecinos[i]]) {
+                        pila.apilar(vecinos[i]);
+                    }
+                }
+            }
+        }
+        return traducir(g, orden, cantOrden);
+    }
+
+    // CONSTRUCCION DEL GRAFO Y LLAMADAS DE BUSQUEDAS
     public static void main(String[] args) {
         Grafo g = new Grafo(8);
-
-        System.out.println("=== Construccion del grafo (ciudades y rutas directas) ===");
-        String[] ciudades = {
-                "BuenosAires", "Rosario", "Cordoba", "Mendoza",
-                "Salta", "Neuquen", "BahiaBlanca", "Ushuaia"
-        };
-        for (String c : ciudades) {
-            g.agregarVertice(c);
-        }
-        System.out.println("Vertices agregados: " + g.cantidadVertices());
-
+        System.out.println("=== Construyendo grafo de ciudades.");
+        System.out.println("    Construyendo grafo de ciudades..");
+        System.out.println("    Construyendo grafo de ciudades...");
+        String[] ciudades = {"BuenosAires", "Rosario", "Cordoba", "Mendoza", "Salta", "Neuquen", "BahiaBlanca", "Ushuaia"};
+        for (String c : ciudades) g.agregarVertice(c);
         g.agregarArista("BuenosAires", "Rosario");
         g.agregarArista("BuenosAires", "BahiaBlanca");
         g.agregarArista("BuenosAires", "Neuquen");
         g.agregarArista("Rosario", "Cordoba");
         g.agregarArista("Cordoba", "Mendoza");
-        g.agregarArista("Cordoba", "Salta");
         g.agregarArista("Mendoza", "Neuquen");
         g.agregarArista("BahiaBlanca", "Neuquen");
-        // Ushuaia queda sin ninguna arista: vertice aislado, a proposito
-        // (se va a usar en la Clase 13 para mostrar componentes conexas).
-
+        // Ushuaia queda sin ninguna arista a propósito. Es un vertice aislado.
         System.out.println();
-        System.out.println("=== existeArista ===");
-        System.out.println("existeArista(BuenosAires, Rosario) = " + g.existeArista("BuenosAires", "Rosario"));
-        System.out.println("existeArista(BuenosAires, Cordoba) = " + g.existeArista("BuenosAires", "Cordoba"));
-        System.out.println("existeArista(Cordoba, Salta) = " + g.existeArista("Cordoba", "Salta"));
-
+        System.out.println("=== Grafo construído con éxito. Vértices agregados: " + g.cantidadVertices());
         System.out.println();
-        System.out.println("=== vecinos ===");
-        System.out.println("vecinos(BuenosAires) = " + setDeVecinos(g, "BuenosAires"));
-        System.out.println("vecinos(Cordoba) = " + setDeVecinos(g, "Cordoba"));
-        System.out.println("vecinos(Ushuaia) = " + setDeVecinos(g, "Ushuaia"));
-
+        System.out.println("=== Búsqueda BFS partiendo desde BuenosAires:");
+        System.out.println(Arrays.toString(BFS(g, "BuenosAires")));
         System.out.println();
-        System.out.println("=== cantidadVertices ===");
-        System.out.println("cantidadVertices(g) = " + g.cantidadVertices());
+        System.out.println("=== Búsqueda DFS Recursivo partiendo desde BuenosAires:");
+        System.out.println(Arrays.toString(DFS(g, "BuenosAires")));
+        System.out.println();
+        System.out.println("=== Búsqueda DFS Iterativo partiendo desde BuenosAires:");
+        System.out.println(Arrays.toString(DFSI(g, "BuenosAires")));
     }
 }
