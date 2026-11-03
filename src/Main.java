@@ -126,5 +126,6 @@ public class Main {
         System.out.println(Arrays.toString(DFSI(g, "BuenosAires")));
         System.out.println();
         System.out.println("=== Métodos:");
+        System.out.println("Componentes conexas: " + Metodos.componentesConexas(g));
     }
 }
