@@ -99,6 +99,7 @@ public class Main {
 
     // --- CONSTRUCCION DEL GRAFO, LLAMADAS DE BUSQUEDAS Y DE MÉTODOS ---
     public static void main(String[] args) {
+        Metodos m = new Metodos();
         Grafo g = new Grafo(8);
         System.out.println("=== Construyendo grafo de ciudades.");
         System.out.println("    Construyendo grafo de ciudades..");
@@ -126,7 +127,15 @@ public class Main {
         System.out.println("=== Búsqueda DFS Iterativo partiendo desde BuenosAires:");
         System.out.println(Arrays.toString(DFSI(g, "BuenosAires")));
         System.out.println();
+
         System.out.println("=== Métodos:");
-        System.out.println("Componentes conexas: " + Metodos.componentesConexas(g));
+        System.out.println("=== Componentes conexas:");
+        System.out.println(m.componentesConexas(g));
+        System.out.println();
+        System.out.println("=== Estan conectados:");
+        System.out.println("BuenosAires - Mendoza: " + m.estanConectados(g, "BuenosAires", "Mendoza")); // true
+        System.out.println("Rosario - BahiaBlanca: " + m.estanConectados(g, "Rosario", "BahiaBlanca")); // true
+        System.out.println("BuenosAires - Ushuaia: " + m.estanConectados(g, "BuenosAires", "Ushuaia")); // false
+        System.out.println("Salta - Cordoba: " + m.estanConectados(g, "Salta", "Cordoba"));
     }
 }

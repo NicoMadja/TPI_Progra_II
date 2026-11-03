@@ -3,11 +3,17 @@ import Implementaciones.Grafo;
 
 public class Metodos {
 
-    public boolean estanConectados(g:Grafo, v1, v2) {
-
+    public boolean estanConectados(Grafo g, String v1, String v2) {
+        String[] alcanzables = Main.BFS(g, v1);
+        for (int i = 0; i < alcanzables.length; i++) {
+            if (alcanzables[i].equals(v2)) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    public static int componentesConexas(Grafo g) {
+    public int componentesConexas(Grafo g) {
         int n = g.cantidadVertices();
         boolean[] visitado = new boolean[n];
         int componentes = 0;
@@ -34,8 +40,6 @@ public class Metodos {
             }
         }
         return componentes;
-
-    public int caminoMasCorto(g: Grafo, origen, destino) {
 
     }
 }
