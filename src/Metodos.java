@@ -3,6 +3,9 @@ import Implementaciones.Grafo;
 
 public class Metodos {
 
+    public boolean estanConectados(g:Grafo, v1, v2) {
+
+    }
 
     public static int componentesConexas(Grafo g) {
         int n = g.cantidadVertices();
@@ -31,6 +34,8 @@ public class Metodos {
             }
         }
         return componentes;
+
+    public int caminoMasCorto(g: Grafo, origen, destino) {
 
     }
 }
