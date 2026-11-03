@@ -34,7 +34,7 @@ public class Main {
             orden[cantOrden] = actual;
             cantOrden++;
 
-            int[] vecinos = g.vecinos(g.etiquetaDe(actual));
+            int[] vecinos = g.vecinosPorIndice(actual);
             for (int i = 0; i < vecinos.length; i++) {
                 int w = vecinos[i];
                 if (!visitado[w]) {
@@ -60,7 +60,7 @@ public class Main {
         orden[cantOrden[0]] = v;
         cantOrden[0]++;
 
-        int[] vecinos = g.vecinos(g.etiquetaDe(v));
+        int[] vecinos = g.vecinosPorIndice(v);
         for (int i = 0; i < vecinos.length; i++) {
             int w = vecinos[i];
             if (!visitado[w]) {
@@ -86,7 +86,7 @@ public class Main {
                 orden[cantOrden] = actual;
                 cantOrden++;
 
-                int[] vecinos = g.vecinos(g.etiquetaDe(actual));
+                int[] vecinos = g.vecinosPorIndice(actual);
                 for (int i = 0; i < vecinos.length; i++) {
                     if (!visitado[vecinos[i]]) {
                         pila.apilar(vecinos[i]);
@@ -110,6 +110,7 @@ public class Main {
         g.agregarArista("BuenosAires", "Neuquen");
         g.agregarArista("Rosario", "Cordoba");
         g.agregarArista("Cordoba", "Mendoza");
+        g.agregarArista("Cordoba", "Salta");
         g.agregarArista("Mendoza", "Neuquen");
         g.agregarArista("BahiaBlanca", "Neuquen");
         // Ushuaia queda sin ninguna arista a propósito. Es un vertice aislado.
