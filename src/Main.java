@@ -1,12 +1,12 @@
 import Implementaciones.Cola;
 import Implementaciones.Grafo;
 import Implementaciones.Pila;
-
 import java.util.Arrays;
 
 public class Main {
     // # Aclaración: utilizamos -Arrays.toString- para imprimir los nombres de los vértices en consola.
 
+    // --- BUSQUEDAS ---
     // Traductor de números enteros a nombres de ciudades
     private static String[] traducir(Grafo g, int[] orden, int cantidad) {
         String[] resultado = new String[cantidad];
@@ -97,7 +97,7 @@ public class Main {
         return traducir(g, orden, cantOrden);
     }
 
-    // CONSTRUCCION DEL GRAFO Y LLAMADAS DE BUSQUEDAS
+    // --- CONSTRUCCION DEL GRAFO, LLAMADAS DE BUSQUEDAS Y DE MÉTODOS ---
     public static void main(String[] args) {
         Grafo g = new Grafo(8);
         System.out.println("=== Construyendo grafo de ciudades.");
@@ -124,5 +124,7 @@ public class Main {
         System.out.println();
         System.out.println("=== Búsqueda DFS Iterativo partiendo desde BuenosAires:");
         System.out.println(Arrays.toString(DFSI(g, "BuenosAires")));
+        System.out.println();
+        System.out.println("=== Métodos:");
     }
 }
