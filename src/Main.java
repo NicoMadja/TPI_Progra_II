@@ -137,5 +137,19 @@ public class Main {
         System.out.println("Rosario - BahiaBlanca: " + m.estanConectados(g, "Rosario", "BahiaBlanca")); // true
         System.out.println("BuenosAires - Ushuaia: " + m.estanConectados(g, "BuenosAires", "Ushuaia")); // false
         System.out.println("Salta - Cordoba: " + m.estanConectados(g, "Salta", "Cordoba"));
+        System.out.println("--- caminoMasCorto");
+        System.out.println("BuenosAires - Rosario: " + m.caminoMasCorto(g, "BuenosAires", "Rosario"));
+        System.out.println("BuenosAires - Mendoza: " + m.caminoMasCorto(g, "BuenosAires", "Mendoza"));
+        System.out.println("BahiaBlanca - Cordoba: " + m.caminoMasCorto(g, "BahiaBlanca", "Cordoba"));
+        System.out.println("BuenosAires - BuenosAires: " + m.caminoMasCorto(g, "BuenosAires", "BuenosAires"));
+        System.out.println("BuenosAires - Ushuaia: " + m.caminoMasCorto(g, "BuenosAires", "Ushuaia"));
+        System.out.println("--- componentesConexas");
+        System.out.println("Componentes conexas (grupo grande + Salta + Ushuaia): " + m.componentesConexas(g));
+        // Para mostrar que cambia
+        System.out.println("--- Con cambios");
+        g.agregarArista("Ushuaia", "BuenosAires");
+        System.out.println("Componentes conexas (con Ushuaia conectada a BuenosAires): " + m.componentesConexas(g));
+        System.out.println("BuenosAires - Ushuaia ahora: " + m.estanConectados(g, "BuenosAires", "Ushuaia")
+                + ", distancia " + m.caminoMasCorto(g, "BuenosAires", "Ushuaia"));
     }
 }

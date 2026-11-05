@@ -42,4 +42,30 @@ public class Metodos {
         return componentes;
 
     }
+
+    public int caminoMasCorto(Grafo g, String origen, String destino) {
+        int n = g.cantidadVertices();
+        int inicio = g.indiceDe(origen);
+        int fin = g.indiceDe(destino);
+        int[] distancia = new int[n];
+        for (int i = 0; i < n; i++) distancia[i] = -1;   // -1 = no visitado
+        Cola cola = new Cola(n);
+
+        cola.encolar(inicio);
+        distancia[inicio] = 0;
+        while (!cola.esVacia()) {
+            int actual = cola.primero();
+            cola.desencolar();
+            if (actual == fin) return distancia[actual];
+            int[] vecinos = g.vecinosPorIndice(actual);
+            for (int i = 0; i < vecinos.length; i++) {
+                int w = vecinos[i];
+                if (distancia[w] == -1) {
+                    distancia[w] = distancia[actual] + 1;
+                    cola.encolar(w);
+                }
+            }
+        }
+        return -1;   // no hay camino
+    }
 }
