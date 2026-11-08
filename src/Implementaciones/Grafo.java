@@ -15,10 +15,6 @@ public class Grafo {
         this.cantidadVertices = 0;
     }
 
-    public int cantidadVertices() {
-        return cantidadVertices;
-    }
-
     public void agregarVertice(String etiqueta) {
         if (cantidadVertices == capacidad) {
             throw new RuntimeException("Grafo lleno");
@@ -42,6 +38,10 @@ public class Grafo {
         int i = indices.obtener(v1);
         int j = indices.obtener(v2);
         return adyacencia[i][j];
+    }
+
+    public int cantidadVertices() {
+        return cantidadVertices;
     }
 
     public int[] vecinos(String etiqueta) {

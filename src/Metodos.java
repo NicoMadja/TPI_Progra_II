@@ -6,7 +6,7 @@ public class Metodos {
     public boolean estanConectados(Grafo g, String v1, String v2) {
         String[] alcanzables = Main.BFS(g, v1);
         for (int i = 0; i < alcanzables.length; i++) {
-            if (alcanzables[i].equals(v2)) {
+            if (alcanzables[i] != null && alcanzables[i].equals(v2)) {
                 return true;
             }
         }
@@ -40,15 +40,16 @@ public class Metodos {
             }
         }
         return componentes;
-
     }
 
     public int caminoMasCorto(Grafo g, String origen, String destino) {
         int n = g.cantidadVertices();
         int inicio = g.indiceDe(origen);
         int fin = g.indiceDe(destino);
+        if (inicio == -1 || fin == -1) return -1;  // validacion
+        if (inicio == fin) return 0;               // validacion
         int[] distancia = new int[n];
-        for (int i = 0; i < n; i++) distancia[i] = -1;   // -1 = no visitado
+        for (int i = 0; i < n; i++) distancia[i] = -1;  // -1 = no visitado
         Cola cola = new Cola(n);
 
         cola.encolar(inicio);
@@ -66,6 +67,6 @@ public class Metodos {
                 }
             }
         }
-        return -1;   // no hay camino
+        return -1;  // no hay camino
     }
 }

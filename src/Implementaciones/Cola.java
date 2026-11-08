@@ -2,9 +2,9 @@ package Implementaciones;
 
 public class Cola {
     private int[] datos;
-    private int frente;   // indice del primer elemento
-    private int cantidad; // cuantos elementos hay
-    private int capacidad;
+    private int frente;    // indice del primer elemento
+    private int cantidad;  // cuantos elementos hay
+    private int capacidad; // cuantos elementos entran
 
     public Cola(int capacidad) {
         this.capacidad = capacidad;
